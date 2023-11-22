@@ -1,0 +1,9 @@
+Entities :
+Level
+Questions
+GameSettings
+GameResult
+______________
+UseCases:
+GetGameSettingsUseCase
+GenerateQuestionsUseCase
