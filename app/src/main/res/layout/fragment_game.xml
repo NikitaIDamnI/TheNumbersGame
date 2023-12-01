@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backColor"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="00:00" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/guideline5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv"
+                    style="@style/OptionTextStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@color/orange"
+                    android:textColor="@color/white"
+                    tools:layout_editor_absoluteY="249dp"
+                    tools:text="1" />
+
+                <TextView
+                    android:id="@+id/tv2"
+                    style="@style/OptionTextStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@color/green"
+                    android:textColor="@color/white"
+                    tools:layout_editor_absoluteX="128dp"
+                    tools:layout_editor_absoluteY="249dp"
+                    tools:text="1" />
+
+                <TextView
+                    android:id="@+id/tv4"
+                    style="@style/OptionTextStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@color/red"
+                    tools:layout_editor_absoluteX="128dp"
+                    tools:layout_editor_absoluteY="249dp"
+                    tools:text="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline5">
+
+                <TextView
+                    android:id="@+id/tv5"
+                    style="@style/OptionTextStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@color/blue"
+                    android:textColor="@color/white"
+                    tools:layout_editor_absoluteX="128dp"
+                    tools:layout_editor_absoluteY="249dp"
+                    tools:text="1" />
+
+                <TextView
+                    android:id="@+id/tv6"
+                    style="@style/OptionTextStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@color/purple"
+                    tools:layout_editor_absoluteX="128dp"
+                    tools:layout_editor_absoluteY="249dp"
+                    tools:text="1" />
+
+                <TextView
+                    android:id="@+id/tv7"
+                    style="@style/OptionTextStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@color/yellow"
+                    android:textColor="@color/white"
+                    tools:layout_editor_absoluteX="128dp"
+                    tools:layout_editor_absoluteY="249dp"
+                    tools:text="1" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_begin="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="188dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_alarm_clock" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="50dp"
+        android:background="#FFCCBC"
+        android:gravity="center"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="7" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="50dp"
+        android:background="#FFCCBC"
+        android:gravity="center"
+
+        android:text="@string/question_mark"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="144dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/clicle_background"
+        android:gravity="center"
+        android:textSize="80sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:text="20" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="151dp"
+        android:layout_height="137dp"
+        android:layout_marginTop="63dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/imagine_owl" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
