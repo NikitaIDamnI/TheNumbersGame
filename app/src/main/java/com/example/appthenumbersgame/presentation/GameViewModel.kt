@@ -14,6 +14,7 @@ import com.example.appthenumbersgame.domain.entities.Questions
 import com.example.appthenumbersgame.domain.useCases.GenerateQuestionsUseCase
 import com.example.appthenumbersgame.domain.useCases.GetGameSettingsUseCase
 
+
 class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = GameRepositoryImpl
@@ -57,6 +58,13 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val gameResult: LiveData<GameResult>
         get() = _gameResult
 
+    private var _minPercent=  MutableLiveData<Int>()
+    val minPercent: LiveData<Int>
+        get() = _minPercent
+
+
+
+
     private var countOfRightAnswers = 0
     private var countOfQuestions= 0
 
@@ -64,12 +72,14 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     // Начинаем игру
     fun startGame(level: Level) {
         getGameSettings(level)
+        updateProgress()
         startTimer()
         generateQuestions()
     }
     private fun getGameSettings(level: Level) {
         this.level = level
         this.gameSettings = getGameSettingsUseCase(level)
+        _minPercent.value = gameSettings.minPercentOfRightAnswer
     }
 
     //Запуск таймера
@@ -92,7 +102,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
        _question.value = generateQuestionsUseCase(gameSettings.maxSumValue)
     }
 
-    private fun choseAnswer(number: Int){
+     fun choseAnswer(number: Int){
        checkAnswer(number)
         updateProgress()
         generateQuestions()
@@ -111,6 +121,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun calculatePercentOfRightAnswer():Int{
+        if(countOfQuestions == 0) {
+            return 0
+        }
         return ((countOfRightAnswers/countOfQuestions.toDouble())*100).toInt()
     }
 
@@ -130,22 +143,25 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private fun formatTime(millisUntilFinished: Long): String {
-        val seconds = millisUntilFinished * MILLIS_IN_SECONDS
+        val seconds = millisUntilFinished / MILLIS_IN_SECONDS
         val minute = seconds / SECONDS_IN_MINUTES
-        val leftSeconds = seconds - (minute + SECONDS_IN_MINUTES)
+        val leftSeconds = seconds - (minute * SECONDS_IN_MINUTES)
         return String.format("%02d:%02d", minute, leftSeconds)
+
+
 
     }
 
-    fun finish() {
+    private fun finish() {
         _gameResult.value = GameResult(
             winners = _enoughCount.value == true && _enoughPercent.value == true,
             countOfRightAnswer = countOfRightAnswers,
             countOfQuestions = countOfQuestions ,
+            percentOfRightAnswer.value?: 0 ,
             gameSettings = gameSettings
         )
-    }
 
+    }
 
     companion object {
         private const val MILLIS_IN_SECONDS = 1000L

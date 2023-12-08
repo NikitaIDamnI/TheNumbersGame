@@ -60,7 +60,7 @@ class GameFinishFragment : Fragment() {
                 gameResult.gameSettings.minPercentOfRightAnswer
             )
             val tvScorePercentageForm =
-                String.format(tvScorePercentage.text.toString(), gameResult.countOfRightAnswer)
+                String.format(tvScorePercentage.text.toString(), gameResult.percentOfRightAnswer)
             tvRequiredScore.text = tvRequiredScoreForm
             tvScoreAnswers.text = tvScoreAnswersForm
             tvRequiredPercentage.text = tvRequiredPercentageForm
