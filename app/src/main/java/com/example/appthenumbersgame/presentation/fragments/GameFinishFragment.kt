@@ -1,6 +1,5 @@
 package com.example.appthenumbersgame.presentation.fragments
 
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +8,9 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import com.example.appthenumbersgame.R
+import com.example.appthenumbersgame.data.Parcel.parcelable
 import com.example.appthenumbersgame.databinding.FragmentGameFinishBinding
 import com.example.appthenumbersgame.domain.entities.GameResult
-import java.io.Serializable
 
 class GameFinishFragment : Fragment() {
 
@@ -86,7 +85,9 @@ class GameFinishFragment : Fragment() {
     }
 
     private fun parseArg() {
-        gameResult = requireArguments().serializable<GameResult>(KEY_GAME_RESULT)!!
+        requireArguments().parcelable<GameResult>(KEY_GAME_RESULT)?.let {
+            gameResult= it
+        }
     }
 
 
@@ -95,17 +96,16 @@ class GameFinishFragment : Fragment() {
         _binding = null
     }
 
-    inline fun <reified T : Serializable> Bundle.serializable(key: String): T? = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializable(key, T::class.java)
-        else -> @Suppress("DEPRECATION") getSerializable(key) as? T
-    }
+
+
+
 
     companion object {
         private const val KEY_GAME_RESULT = "GameResult"
         fun newInstance(gameResult: GameResult): GameFinishFragment {
             return GameFinishFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_GAME_RESULT, gameResult)
+                    putParcelable(KEY_GAME_RESULT, gameResult)
                 }
             }
 

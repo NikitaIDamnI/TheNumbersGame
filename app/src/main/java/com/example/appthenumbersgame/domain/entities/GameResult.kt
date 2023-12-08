@@ -1,10 +1,11 @@
 package com.example.appthenumbersgame.domain.entities
 
-import java.io.Serializable
-
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+@Parcelize
 data class GameResult(
     val winners : Boolean,
     val countOfRightAnswer : Int,
     val countOfQuestions: Int,
     val gameSettings: GameSettings
-): Serializable
+): Parcelable
