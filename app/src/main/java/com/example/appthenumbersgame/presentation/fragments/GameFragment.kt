@@ -14,7 +14,8 @@ import com.example.appthenumbersgame.data.Parcel.parcelable
 import com.example.appthenumbersgame.databinding.FragmentGameBinding
 import com.example.appthenumbersgame.domain.entities.GameResult
 import com.example.appthenumbersgame.domain.entities.Level
-import com.example.appthenumbersgame.presentation.GameViewModel
+import com.example.appthenumbersgame.presentation.viewModel.GameViewModel
+import com.example.appthenumbersgame.presentation.viewModel.GameViewModelFactory
 
 class GameFragment : Fragment() {
 
@@ -24,11 +25,12 @@ class GameFragment : Fragment() {
 
     private lateinit var level: Level
 
+    private val viewModelFactory by lazy {
+        GameViewModelFactory(requireActivity().application, level)
+    }
+
     private val gameViewModel: GameViewModel by lazy {
-        ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory
-                .getInstance(requireActivity().application)
-        )[GameViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
     }
 
     private val tvAnswers by lazy {
@@ -49,8 +51,7 @@ class GameFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentGameBinding.inflate(inflater, container, false)
@@ -59,7 +60,6 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gameViewModel.startGame(level)
         observeViewModel()
         setClickListenersOnAnswers()
 
@@ -71,7 +71,7 @@ class GameFragment : Fragment() {
             with(binding) {
                 tvSum.text = it.sum.toString()
                 tvVisible.text = it.visibleNumber.toString()
-                for (i in 0 until  tvAnswers.size){
+                for (i in 0 until tvAnswers.size) {
                     tvAnswers[i].text = it.options[i].toString()
                 }
             }
@@ -80,44 +80,43 @@ class GameFragment : Fragment() {
             binding.tvTimer.text = it
         }
         gameViewModel.percentOfRightAnswer.observe(viewLifecycleOwner) {
-            binding.progressBar.setProgress(it,true)
+            binding.progressBar.setProgress(it, true)
         }
         gameViewModel.progressAnswer.observe(viewLifecycleOwner) {
             binding.tvProgressAnswers.text = it
         }
 
-        gameViewModel.enoughCount.observe(viewLifecycleOwner){
+        gameViewModel.enoughCount.observe(viewLifecycleOwner) {
             binding.tvProgressAnswers.setTextColor(getColorByState(it))
         }
-        gameViewModel.enoughPercent.observe(viewLifecycleOwner){
+        gameViewModel.enoughPercent.observe(viewLifecycleOwner) {
             val color = getColorByState(it)
             binding.progressBar.progressTintList = ColorStateList.valueOf(color)
         }
-        gameViewModel.minPercent.observe(viewLifecycleOwner){
+        gameViewModel.minPercent.observe(viewLifecycleOwner) {
             binding.progressBar.secondaryProgress = it
         }
-        gameViewModel.gameResult.observe(viewLifecycleOwner){
+        gameViewModel.gameResult.observe(viewLifecycleOwner) {
             launchGameFinishResult(it)
         }
     }
 
-    private fun setClickListenersOnAnswers(){
-        for (onAnswer in tvAnswers){
+    private fun setClickListenersOnAnswers() {
+        for (onAnswer in tvAnswers) {
             onAnswer.setOnClickListener {
                 gameViewModel.choseAnswer(onAnswer.text.toString().toInt())
             }
         }
     }
 
-    private fun getColorByState(goodState:Boolean):Int{
-        val colorResId = if (goodState){
+    private fun getColorByState(goodState: Boolean): Int {
+        val colorResId = if (goodState) {
             android.R.color.holo_green_light
-        }else{
+        } else {
             android.R.color.holo_red_light
         }
-        return ContextCompat.getColor(requireContext(),colorResId)
+        return ContextCompat.getColor(requireContext(), colorResId)
     }
-
 
 
     private fun parseArg() {
@@ -131,10 +130,8 @@ class GameFragment : Fragment() {
     private fun launchGameFinishResult(result: GameResult) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, GameFinishFragment.newInstance(result))
-            .addToBackStack(null)
-            .commit()
+            .addToBackStack(null).commit()
     }
-
 
 
     override fun onDestroyView() {
