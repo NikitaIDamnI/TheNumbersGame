@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.appthenumbersgame.R
-import com.example.appthenumbersgame.data.Parcel.parcelable
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+
 import com.example.appthenumbersgame.databinding.FragmentGameBinding
 import com.example.appthenumbersgame.domain.entities.GameResult
 import com.example.appthenumbersgame.domain.entities.Level
@@ -23,10 +24,10 @@ class GameFragment : Fragment() {
     private val binding: FragmentGameBinding
         get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
 
-    private lateinit var level: Level
+    private val args by navArgs<GameFragmentArgs>()
 
     private val viewModelFactory by lazy {
-        GameViewModelFactory(requireActivity().application, level)
+        GameViewModelFactory(requireActivity().application, args.level)
     }
 
     private val gameViewModel: GameViewModel by lazy {
@@ -47,7 +48,6 @@ class GameFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parseArg()
     }
 
     override fun onCreateView(
@@ -119,18 +119,10 @@ class GameFragment : Fragment() {
     }
 
 
-    private fun parseArg() {
-        requireArguments().parcelable<Level>(KEY_LEVEL)?.let {
-            level = it
-        }
-
-    }
-
-
     private fun launchGameFinishResult(result: GameResult) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, GameFinishFragment.newInstance(result))
-            .addToBackStack(null).commit()
+        findNavController().navigate(
+            GameFragmentDirections.actionGameFragmentToGameFinishFragment(result)
+        )
     }
 
 
@@ -139,18 +131,5 @@ class GameFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
 
-        private const val KEY_LEVEL = "LEVEL"
-        const val NAME = "GameFragment"
-
-
-        fun newInstance(level: Level): GameFragment {
-            return GameFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_LEVEL, level)
-                }
-            }
-        }
-    }
 }

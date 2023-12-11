@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
-import com.example.appthenumbersgame.R
+import androidx.navigation.fragment.findNavController
 import com.example.appthenumbersgame.databinding.FragmentChooseLevelBinding
 import com.example.appthenumbersgame.domain.entities.Level
 
 class ChooseLevelFragment : Fragment() {
     private var _binding: FragmentChooseLevelBinding? = null
-    private val binding : FragmentChooseLevelBinding
-        get() = _binding ?: throw RuntimeException ("FragmentLevelBinding == null")
+    private val binding: FragmentChooseLevelBinding
+        get() = _binding ?: throw RuntimeException("FragmentLevelBinding == null")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +24,7 @@ class ChooseLevelFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentChooseLevelBinding.inflate(inflater,container,false)
+        _binding = FragmentChooseLevelBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,26 +35,26 @@ class ChooseLevelFragment : Fragment() {
     }
 
 
-    private fun bindingButton()= with(binding){
-        bTest.setOnClickListener{
+    private fun bindingButton() = with(binding) {
+        bTest.setOnClickListener {
             launchGameFragment(Level.TEST)
         }
-        bEasy.setOnClickListener{
+        bEasy.setOnClickListener {
             launchGameFragment(Level.EASY)
         }
-        bNormal.setOnClickListener{
+        bNormal.setOnClickListener {
             launchGameFragment(Level.NORMAL)
         }
-        bHard.setOnClickListener{
-           launchGameFragment(Level.HARD)
+        bHard.setOnClickListener {
+            launchGameFragment(Level.HARD)
         }
     }
 
-    private fun launchGameFragment(level:Level){
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container,GameFragment.newInstance(level))
-            .addToBackStack(GameFragment.NAME)
-            .commit()
+    private fun launchGameFragment(level: Level) {
+
+        findNavController().navigate(
+            ChooseLevelFragmentDirections.actionChooseLevelFragmentToGameFragment(level)
+        )
     }
 
 
@@ -64,7 +63,5 @@ class ChooseLevelFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
-        fun newInstance() = ChooseLevelFragment()
-    }
+
 }
