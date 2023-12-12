@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:add="http://schemas.android.com/apk/res-auto">
+<layout xmlns:add="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -27,7 +26,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:textSize="20sp"
-        app:scorePercentage="@{dataGameResult.percentOfRightAnswers}"
+        app:scorePercentage="@{dataGameResult.percentOfRightAnswer}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +40,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:requiredPercent="@{dataGameResult.gameSettings.minPercentOfRightAnswers}"
+        app:requiredPercent="@{dataGameResult.gameSettings.minPercentOfRightAnswer}"
         tools:text=""
         android:textSize="20sp"
 
@@ -57,7 +56,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:textSize="20sp"
-        app:scoreAnswers="@{dataGameResult.countOfRightAnswers}"
+        app:scoreAnswers="@{dataGameResult.countOfRightAnswer}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +70,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
         android:textSize="20sp"
-        app:requiredAnswer="@{dataGameResult.gameSettings.minCountOfRightAnswers}"
+        app:requiredAnswer="@{dataGameResult.gameSettings.minCountOfRightAnswer}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +101,6 @@
         app:layout_constraintHorizontal_bias="0.413"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/image_lose"
-       />
+        tools:srcCompat="@drawable/image_lose" />
 </androidx.constraintlayout.widget.ConstraintLayout>
     </layout>

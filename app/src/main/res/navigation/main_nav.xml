@@ -34,7 +34,8 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="level"
-            app:argType="com.example.appthenumbersgame.domain.entities.Level" />
+            app:argType="com.example.appthenumbersgame.domain.entities.Level"
+            />
     </fragment>
     <fragment
         android:id="@+id/gameFinishFragment"
