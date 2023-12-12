@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="dataGameViewModel"
+            type="com.example.appthenumbersgame.presentation.viewModel.GameViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backColor"
@@ -14,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:textColor="@color/black"
+        android:text="@{dataGameViewModel.formattedTime}"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -53,6 +62,8 @@
                     android:layout_width="130dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:text="@{dataGameViewModel.question.options.get(0).toString()}"
+                    app:set_on_click="@{(option)-> dataGameViewModel.choseAnswer(option)}"
                     android:background="@color/orange"
                     android:textColor="@color/white"
                     tools:layout_editor_absoluteY="249dp"
@@ -64,6 +75,8 @@
                     android:layout_width="130dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:text="@{dataGameViewModel.question.options.get(1).toString()}"
+                    app:set_on_click="@{(option)-> dataGameViewModel.choseAnswer(option)}"
                     android:background="@color/green"
                     android:textColor="@color/white"
                     tools:layout_editor_absoluteX="128dp"
@@ -76,6 +89,8 @@
                     android:layout_width="130dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:text="@{dataGameViewModel.question.options.get(2).toString()}"
+                    app:set_on_click="@{(option)-> dataGameViewModel.choseAnswer(option)}"
                     android:background="@color/red"
                     tools:layout_editor_absoluteX="128dp"
                     tools:layout_editor_absoluteY="249dp"
@@ -99,6 +114,8 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:background="@color/blue"
+                    android:text="@{dataGameViewModel.question.options.get(3).toString()}"
+                    app:set_on_click="@{(option)-> dataGameViewModel.choseAnswer(option)}"
                     android:textColor="@color/white"
                     tools:layout_editor_absoluteX="128dp"
                     tools:layout_editor_absoluteY="249dp"
@@ -110,6 +127,8 @@
                     android:layout_width="130dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:text="@{dataGameViewModel.question.options.get(4).toString()}"
+                    app:set_on_click="@{(option)-> dataGameViewModel.choseAnswer(option)}"
                     android:background="@color/purple"
                     tools:layout_editor_absoluteX="128dp"
                     tools:layout_editor_absoluteY="249dp"
@@ -121,6 +140,8 @@
                     android:layout_width="130dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:text="@{dataGameViewModel.question.options.get(5).toString()}"
+                    app:set_on_click="@{(option)-> dataGameViewModel.choseAnswer(option)}"
                     android:background="@color/yellow"
                     android:textColor="@color/white"
                     tools:layout_editor_absoluteX="128dp"
@@ -148,7 +169,8 @@
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_alarm_clock" />
+        app:srcCompat="@drawable/image_alarm_clock"
+       />
 
     <TextView
         android:id="@+id/tv_visible"
@@ -160,6 +182,7 @@
         android:background="#FFCCBC"
         android:gravity="center"
         android:textSize="80sp"
+        app:bind_tv_visible="@{dataGameViewModel.question.visibleNumber}"
         app:layout_constraintBottom_toTopOf="@+id/tv_progress_answers"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
@@ -193,6 +216,7 @@
         android:background="@drawable/clicle_background"
         android:gravity="center"
         android:textSize="80sp"
+        app:bind_tv_sum="@{dataGameViewModel.question.sum}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -206,7 +230,8 @@
         android:layout_marginTop="63dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/imagine_owl" />
+        app:srcCompat="@drawable/imagine_owl"
+         />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -214,8 +239,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        app:pb_set_progress="@{dataGameViewModel.percentOfRightAnswer}"
+        app:pb_progress_color="@{dataGameViewModel.enoughPercent}"
+        app:pb_secondary_progress="@{dataGameViewModel.minPercent}"
         android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -226,9 +254,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="10dp"
+        app:progress_answers_color="@{dataGameViewModel.enoughCount}"
+        app:progress_answers_text="@{dataGameViewModel.progressAnswer}"
         android:text="@string/right_answers"
         android:textColor="@color/red"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </layout>
