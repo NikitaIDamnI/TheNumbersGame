@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout xmlns:add="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="dataGameResult"
+            type="com.example.appthenumbersgame.domain.entities.GameResult"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backColor"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.GameFinishFragment">
 
     <TextView
         android:id="@+id/tv_score_percentage"
@@ -15,22 +25,23 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="@string/score_percentage"
         android:textSize="20sp"
+        app:scorePercentage="@{dataGameResult.percentOfRightAnswer}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_required_percentage" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_required_answers" />
 
     <TextView
-        android:id="@+id/tv_required_percentage"
+        android:id="@+id/tv_required_answers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="@string/required_percentage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:requiredPercent="@{dataGameResult.gameSettings.minPercentOfRightAnswer}"
+        tools:text=""
         android:textSize="20sp"
 
         app:layout_constraintHorizontal_bias="1.0"
@@ -45,7 +56,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:textSize="20sp"
-        android:text="@string/score_answers"
+        app:scoreAnswers="@{dataGameResult.countOfRightAnswer}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,8 +69,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
-        android:text="@string/required_score"
         android:textSize="20sp"
+        app:requiredAnswer="@{dataGameResult.gameSettings.minCountOfRightAnswer}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,10 +96,11 @@
         android:layout_width="295dp"
         android:layout_height="258dp"
         android:layout_marginTop="28dp"
-
+        add:resultImage="@{dataGameResult.winners}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.413"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/image_lose" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </layout>
